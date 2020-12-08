@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { FreeContent } from '../../interfaces'
+import { ContentSource, FreeContent } from '../../interfaces'
 import { apiUrl, getFreeEpicGames } from '../../scrapers/epic-games'
 
 jest.mock('axios')
@@ -88,6 +88,7 @@ describe('#epic games scraper', () => {
                     imageUrl,
                     url: expect.stringContaining(productSlug),
                     expirationDate: expect.any(Date),
+                    source: ContentSource.EpicGames,
                 },
             ]))
     })

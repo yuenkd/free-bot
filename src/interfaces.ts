@@ -4,6 +4,11 @@ export interface FreeContent {
     imageUrl: string
     url: string
     expirationDate: Date
+    source: ContentSource
+}
+
+export enum ContentSource {
+    EpicGames,
 }
 
 export interface EpicFreeGame {
@@ -16,13 +21,13 @@ export interface EpicFreeGame {
 }
 
 export interface SlackField {
-    type: string
+    type: 'plain_text' | 'mrkdwn'
     text: string
     emoji?: boolean
 }
 
 export interface SlackBlock {
-    type: string
+    type: 'section' | 'image'
     fields?: SlackField[]
     title?: SlackField
     image_url?: string

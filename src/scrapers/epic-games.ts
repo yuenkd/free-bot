@@ -1,4 +1,4 @@
-import { EpicFreeGame, FreeContent } from '../interfaces'
+import { ContentSource, EpicFreeGame, FreeContent } from '../interfaces'
 
 import axios from 'axios'
 
@@ -16,6 +16,7 @@ export async function getFreeEpicGames(): Promise<FreeContent[]> {
                 imageUrl: freeGame.keyImages.find((i) => i.type === 'Thumbnail')?.url,
                 url: `https://www.epicgames.com/store/en-US/product/${freeGame.productSlug}`,
                 expirationDate: new Date(freeGame.price.lineOffers[0].appliedRules[0].endDate),
+                source: ContentSource.EpicGames,
             })) ?? []
     )
 }
