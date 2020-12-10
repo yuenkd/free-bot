@@ -10,6 +10,6 @@ async function main() {
     }
 }
 
-cron.schedule('0 16 * * 4', () => {
+cron.schedule('0 17 * * 4', () => {
     main()
 })
