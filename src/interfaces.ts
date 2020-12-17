@@ -15,9 +15,16 @@ export interface EpicFreeGame {
     title: string
     description: string
     keyImages: { type: string; url: string }[]
-    effectiveDate: Date
+    effectiveDate: string
     productSlug: string
-    price: { lineOffers: { appliedRules: { endDate: string }[] }[] }
+    price?: { lineOffers: { appliedRules: { endDate: string }[] }[] }
+    promotions?: { promotionalOffers: { promotionalOffers: EpicPromotionalOffer[] }[] }
+}
+
+export interface EpicPromotionalOffer {
+    startDate: string
+    endDate: string
+    discountSetting: { discountType: string; discountPercentage: number }
 }
 
 export interface SlackField {

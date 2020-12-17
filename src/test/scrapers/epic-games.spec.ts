@@ -1,95 +1,76 @@
 import axios from 'axios'
 import { ContentSource, FreeContent } from '../../interfaces'
-import { apiUrl, getFreeEpicGames } from '../../scrapers/epic-games'
+import { apiUrl, epicProductPagePrefix, getFreeEpicGames } from '../../scrapers/epic-games'
+import { getFakeEpicFreeGame } from './mock-data'
 
 jest.mock('axios')
 
 describe('#epic games scraper', () => {
-    describe('when checking for free content', () => {
-        let freeGames: FreeContent[]
-        const title = 'Cave Story+'
-        const description = 'Cave Story+'
-        const imageUrl =
-            'https://cdn1.epicgames.com/78473822f724474d8e436f6bde735623/offer/EGS_CaveStory_NicalisIncStudioPixel_S2-1200x1600-fe3f0018e131d715af61f6b2143af331.jpg'
-        const productSlug = 'cave-story-plus'
+    describe('when checking for free games', () => {
+        let actualfreeGames: FreeContent[]
+        let expectedFreeGames: FreeContent[]
 
         beforeAll(async () => {
-            const today = new Date()
             const nextWeek = new Date()
             nextWeek.setDate(nextWeek.getDate() + 7)
-            const freeGame = {
+            expectedFreeGames = [
+                {
+                    title: 'Regular Free Game',
+                    description: 'Regular Free Game',
+                    imageUrl: 'https://free.game.example.com',
+                    url: `${epicProductPagePrefix}/regular-free-game`,
+                    expirationDate: nextWeek,
+                    source: ContentSource.EpicGames,
+                },
+                {
+                    title: 'Promotional Free Game',
+                    description: 'Promotional Free Game',
+                    imageUrl: 'https://promo.free.game.example.com',
+                    url: `${epicProductPagePrefix}/promotional-free-game`,
+                    expirationDate: nextWeek,
+                    source: ContentSource.EpicGames,
+                },
+            ]
+
+            const epicResponse = {
                 data: {
                     Catalog: {
                         searchStore: {
                             elements: [
-                                {
-                                    title,
-                                    description,
-                                    effectiveDate: today.toISOString(),
-                                    keyImages: [
-                                        {
-                                            type: 'Thumbnail',
-                                            url: imageUrl,
-                                        },
-                                    ],
-                                    productSlug,
-                                    price: {
-                                        lineOffers: [
-                                            {
-                                                appliedRules: [
-                                                    {
-                                                        endDate: '2020-12-10T16:00:00.000Z',
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                    },
-                                },
-                                {
+                                getFakeEpicFreeGame({
+                                    title: expectedFreeGames[0].title,
+                                    description: expectedFreeGames[0].description,
+                                    imageUrl: expectedFreeGames[0].imageUrl,
+                                    productSlug: 'regular-free-game',
+                                    effectiveDate: new Date(),
+                                    endDate: expectedFreeGames[0].expirationDate,
+                                }),
+                                getFakeEpicFreeGame({
+                                    title: expectedFreeGames[1].title,
+                                    description: expectedFreeGames[1].description,
+                                    imageType: 'DieselStoreFrontWide',
+                                    imageUrl: expectedFreeGames[1].imageUrl,
+                                    productSlug: 'promotional-free-game',
+                                    endDate: expectedFreeGames[1].expirationDate,
+                                    isPromotional: true,
+                                }),
+                                getFakeEpicFreeGame({
                                     title: 'Not available until next week',
                                     description: 'Super cool game',
-                                    effectiveDate: nextWeek.toISOString(),
-                                    keyImages: [
-                                        {
-                                            type: 'Thumbnail',
-                                            url: imageUrl,
-                                        },
-                                    ],
-                                    productSlug,
-                                    price: {
-                                        lineOffers: [
-                                            {
-                                                appliedRules: [
-                                                    {
-                                                        endDate: '2020-12-10T16:00:00.000Z',
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                    },
-                                },
+                                    effectiveDate: nextWeek,
+                                }),
                             ],
                         },
                     },
                 },
             }
             ;(axios.get as jest.Mock).mockResolvedValue({
-                data: freeGame,
+                data: epicResponse,
                 status: 200,
             })
-            freeGames = await getFreeEpicGames()
+            actualfreeGames = await getFreeEpicGames()
         })
         it('hits the epic games API', () => expect(axios.get).toBeCalledWith(apiUrl))
-        it('returns the list of free games effective today', () =>
-            expect(freeGames).toEqual([
-                {
-                    title,
-                    description,
-                    imageUrl,
-                    url: expect.stringContaining(productSlug),
-                    expirationDate: expect.any(Date),
-                    source: ContentSource.EpicGames,
-                },
-            ]))
+        it('returns the list of free games effective today', () => expect(actualfreeGames).toEqual(expectedFreeGames))
     })
 })
