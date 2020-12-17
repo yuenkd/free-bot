@@ -55,7 +55,7 @@ function isFreePromotion(promotion: EpicPromotionalOffer) {
 
 function getExpirationDate(game: EpicFreeGame): Date | undefined {
     const freePromotion = getFreePromotion(game)
-    const dateStr = game.price?.lineOffers[0].appliedRules[0].endDate || (freePromotion && freePromotion.endDate)
+    const dateStr = game.price?.lineOffers[0]?.appliedRules[0]?.endDate || (freePromotion && freePromotion.endDate)
     if (dateStr) {
         return new Date(dateStr)
     }
