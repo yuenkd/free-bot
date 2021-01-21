@@ -22,7 +22,7 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
                 type: 'image',
                 title: {
                     type: 'plain_text',
-                    text: `Available until ${expirationDate.toDateString()} at 9AM`,
+                    text: expirationDate ? `Available until ${expirationDate.toDateString()} at 9AM` : '',
                     emoji: true,
                 },
                 image_url: imageUrl,

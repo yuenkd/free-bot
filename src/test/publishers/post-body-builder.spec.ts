@@ -6,11 +6,12 @@ describe('#postBodyBuilder', () => {
         let expectedSlackMessage: SlackMessage
         let actualSlackMessage: SlackMessage
         beforeAll(() => {
+            const expirationDate = new Date()
             const freeContent: FreeContent = {
                 source: ContentSource.EpicGames,
                 title: 'Free Thing',
                 description: 'This cool thing is free',
-                expirationDate: new Date(),
+                expirationDate,
                 imageUrl: 'http://cool.image',
                 url: 'http://here.it.is',
             }
@@ -30,7 +31,7 @@ describe('#postBodyBuilder', () => {
                         type: 'image',
                         title: {
                             type: 'plain_text',
-                            text: `Available until ${freeContent.expirationDate.toDateString()} at 9AM`,
+                            text: `Available until ${expirationDate.toDateString()} at 9AM`,
                             emoji: true,
                         },
                         image_url: freeContent.imageUrl,
