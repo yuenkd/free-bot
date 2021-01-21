@@ -1,9 +1,13 @@
+export interface EpicGamesResponse {
+    data: { Catalog: { searchStore: { elements: EpicFreeGame[] } } }
+}
+
 export interface FreeContent {
     title: string
     description: string
     imageUrl: string
     url: string
-    expirationDate: Date
+    expirationDate?: Date
     source: ContentSource
 }
 

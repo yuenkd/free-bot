@@ -1,4 +1,4 @@
-import { ContentSource, EpicFreeGame, EpicPromotionalOffer, FreeContent } from '../interfaces'
+import { ContentSource, EpicFreeGame, EpicGamesResponse, EpicPromotionalOffer, FreeContent } from '../interfaces'
 
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ export const apiUrl =
 export const epicProductPagePrefix = 'https://www.epicgames.com/store/en-US/product'
 
 export async function getFreeEpicGames(): Promise<FreeContent[]> {
-    const response = await axios.get(apiUrl)
+    const response = await axios.get<EpicGamesResponse>(apiUrl)
     const elements = response.data?.data?.Catalog?.searchStore?.elements
     return (
         elements?.filter(isGameFreeToday).map((freeGame: EpicFreeGame) => ({

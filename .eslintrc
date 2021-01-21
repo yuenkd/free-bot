@@ -3,13 +3,16 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2020,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "tsconfig.json"
     },
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["@typescript-eslint", "jest"],
     "extends": [
-        "plugin:@typescript-eslint/eslint-recommended",
+        "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier",
         "prettier/@typescript-eslint",
-        "plugin:prettier/recommended"
+        "plugin:jest/recommended"
     ]
 }
