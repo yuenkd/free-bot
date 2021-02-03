@@ -6,24 +6,18 @@ const sourceMap = {
 
 export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
     const { title, expirationDate, imageUrl, url, source } = freeContent
+    const expirationMessage = expirationDate
+        ? `<!date^${Math.floor(
+              expirationDate.getTime() / 1000
+          )}^Expires {date_short_pretty} at {time}|Expires ${expirationDate.toDateString()}>`
+        : ''
     return {
         blocks: [
-            {
-                type: 'section',
-                fields: [
-                    {
-                        type: 'plain_text',
-                        text: `Free from ${sourceMap[source]}`,
-                        emoji: true,
-                    },
-                ],
-            },
             {
                 type: 'image',
                 title: {
                     type: 'plain_text',
-                    text: expirationDate ? `Available until ${expirationDate.toDateString()} at 9AM` : '',
-                    emoji: true,
+                    text: `Free from ${sourceMap[source]} - ${title}`,
                 },
                 image_url: imageUrl,
                 alt_text: title,
@@ -32,7 +26,14 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `<${url}|Get ${title}>`,
+                    text: `*<${url}|Get ${title}>*`,
+                },
+            },
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `_${expirationMessage}_`,
                 },
             },
         ],

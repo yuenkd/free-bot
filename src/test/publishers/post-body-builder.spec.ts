@@ -18,21 +18,10 @@ describe('#postBodyBuilder', () => {
             expectedSlackMessage = {
                 blocks: [
                     {
-                        type: 'section',
-                        fields: [
-                            {
-                                type: 'plain_text',
-                                text: 'Free from Epic Games',
-                                emoji: true,
-                            },
-                        ],
-                    },
-                    {
                         type: 'image',
                         title: {
                             type: 'plain_text',
-                            text: `Available until ${expirationDate.toDateString()} at 9AM`,
-                            emoji: true,
+                            text: `Free from Epic Games - ${freeContent.title}`,
                         },
                         image_url: freeContent.imageUrl,
                         alt_text: freeContent.title,
@@ -41,7 +30,16 @@ describe('#postBodyBuilder', () => {
                         type: 'section',
                         text: {
                             type: 'mrkdwn',
-                            text: `<${freeContent.url}|Get ${freeContent.title}>`,
+                            text: `*<${freeContent.url}|Get ${freeContent.title}>*`,
+                        },
+                    },
+                    {
+                        type: 'section',
+                        text: {
+                            type: 'mrkdwn',
+                            text: `_<!date^${Math.floor(
+                                expirationDate.getTime() / 1000
+                            )}^Expires {date_short_pretty} at {time}|Expires ${expirationDate.toDateString()}>_`,
                         },
                     },
                 ],
