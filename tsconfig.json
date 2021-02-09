@@ -2,8 +2,9 @@
     "extends": "@tsconfig/node14/tsconfig.json",
     "compilerOptions": {
         "preserveConstEnums": true,
-        "incremental": true
+        "incremental": true,
+        "outDir": "dist"
     },
     "include": ["src/**/*.ts*"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "src/test"]
 }

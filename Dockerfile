@@ -1,15 +1,21 @@
-FROM node:lts-alpine3.12
-
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+FROM node:lts-alpine as build
 
 WORKDIR /home/node/app
 
 COPY package*.json ./
 
-USER node
+RUN npm install
 
-RUN npm install --production
+COPY . .
 
-COPY --chown=node:node . .
+RUN npm run build
+RUN npm prune --production
 
-CMD [ "npm", "start" ]
+FROM node:lts-alpine
+
+WORKDIR /opt/free-bot
+
+COPY --from=build /home/node/app/node_modules ./node_modules
+COPY --from=build /home/node/app/dist .
+
+CMD [ "node", "./index.js" ]
