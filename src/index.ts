@@ -11,6 +11,12 @@ async function main() {
     }
 }
 
-cron.schedule('0 17 * * *', () => {
+if(process.env.RUN_ONCE) {
     void main()
-})
+} else {
+    cron.schedule('0 17 * * *', () => {
+        void main()
+    })
+}
+
+
