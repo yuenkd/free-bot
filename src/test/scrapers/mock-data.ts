@@ -12,8 +12,6 @@ interface FreeOverride {
 }
 
 export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeGame {
-    const nextWeek = new Date()
-    nextWeek.setDate(nextWeek.getDate() + 7)
     const {
         title = 'Cool Title',
         description = 'Cool Description',
@@ -21,7 +19,7 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
         imageUrl = 'https://my.cool.image.example.com',
         productSlug = 'super-cool-game',
         effectiveDate = new Date(),
-        endDate = nextWeek,
+        endDate,
         isPromotional = false,
     } = overrides
 
@@ -44,7 +42,7 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
                 {
                     appliedRules: [
                         {
-                            endDate: endDate.toISOString(),
+                            endDate: endDate ? endDate.toISOString() : '',
                         },
                     ],
                 },
@@ -57,7 +55,7 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
                     promotionalOffers: [
                         {
                             startDate: effectiveDate.toISOString(),
-                            endDate: endDate.toISOString(),
+                            endDate: endDate ? endDate.toISOString() : '',
                             discountSetting: {
                                 discountType: 'PERCENTAGE',
                                 discountPercentage: 0,

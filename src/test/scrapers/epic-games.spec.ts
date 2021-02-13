@@ -6,7 +6,7 @@ import { getFakeEpicFreeGame } from './mock-data'
 jest.mock('axios')
 
 describe('#epic games scraper', () => {
-    describe('when checking for free games', () => {
+    describe('when there are free games', () => {
         let actualfreeGames: FreeContent[]
         let expectedFreeGames: FreeContent[]
 
@@ -30,6 +30,13 @@ describe('#epic games scraper', () => {
                     expirationDate: nextWeek,
                     source: ContentSource.EpicGames,
                 },
+                {
+                    title: 'Free Game Other Image',
+                    description: 'Free Game without thumbnail or store images',
+                    imageUrl: 'https://other-image.free.game.example.com',
+                    url: `${epicProductPagePrefix}/free-game-other-image`,
+                    source: ContentSource.EpicGames,
+                },
             ]
 
             const epicResponse = {
@@ -51,8 +58,16 @@ describe('#epic games scraper', () => {
                                     imageType: 'DieselStoreFrontWide',
                                     imageUrl: expectedFreeGames[1].imageUrl,
                                     productSlug: 'promotional-free-game',
-                                    endDate: expectedFreeGames[1].expirationDate,
                                     isPromotional: true,
+                                    endDate: nextWeek,
+                                }),
+                                getFakeEpicFreeGame({
+                                    title: expectedFreeGames[2].title,
+                                    description: expectedFreeGames[2].description,
+                                    imageType: 'OtherImage',
+                                    imageUrl: expectedFreeGames[2].imageUrl,
+                                    productSlug: 'free-game-other-image',
+                                    effectiveDate: new Date(),
                                 }),
                                 getFakeEpicFreeGame({
                                     title: 'Not available until next week',
@@ -72,5 +87,24 @@ describe('#epic games scraper', () => {
         })
         it('hits the epic games API', () => expect(axios.get).toBeCalledWith(apiUrl))
         it('returns the list of free games effective today', () => expect(actualfreeGames).toEqual(expectedFreeGames))
+    })
+    describe('when there are no free games', () => {
+        let actualfreeGames: FreeContent[]
+        beforeAll(async () => {
+            const epicResponse = {
+                data: {
+                    Catalog: {
+                        searchStore: {},
+                    },
+                },
+            }
+            ;(axios.get as jest.Mock).mockResolvedValue({
+                data: epicResponse,
+                status: 200,
+            })
+            actualfreeGames = await getFreeEpicGames()
+        })
+        it('hits the epic games API', () => expect(axios.get).toBeCalledWith(apiUrl))
+        it('returns the list of free games effective today', () => expect(actualfreeGames).toEqual([]))
     })
 })
