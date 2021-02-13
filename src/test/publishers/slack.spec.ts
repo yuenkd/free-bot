@@ -7,26 +7,37 @@ jest.mock('axios')
 
 describe('#slack publisher', () => {
     describe('when publishing to slack', () => {
-        let freeContent: FreeContent
-        const builtContent: SlackMessage = {
-            blocks: [{ type: 'section' }],
+        afterEach(() => {
+            jest.clearAllMocks()
+        })
+        const freeContent: FreeContent = {
+            title: 'Test Title',
+            description: 'Test Description',
+            imageUrl: 'https://cool.image',
+            url: 'https://cool.link',
+            expirationDate: new Date(),
+            source: ContentSource.EpicGames,
         }
-        beforeAll(async () => {
-            jest.spyOn(postBodyBuilder, 'buildSlackMessage').mockImplementation(() => builtContent)
-            process.env.SLACK_HOOK = 'https://my.slack.hook'
-            freeContent = {
-                title: 'Test Title',
-                description: 'Test Description',
-                imageUrl: 'https://cool.image',
-                url: 'https://cool.link',
-                expirationDate: new Date(),
-                source: ContentSource.EpicGames,
+
+        describe('with a slack hook', () => {
+            const builtContent: SlackMessage = {
+                blocks: [{ type: 'section' }],
             }
-            await publishToSlack(freeContent)
+            beforeAll(async () => {
+                jest.spyOn(postBodyBuilder, 'buildSlackMessage').mockImplementation(() => builtContent)
+                process.env.SLACK_HOOK = 'https://my.slack.hook'
+                await publishToSlack(freeContent)
+            })
+            it('sends a message to slack', () =>
+                expect(axios.post).toBeCalledWith(process.env.SLACK_HOOK, builtContent))
         })
-        afterAll(() => {
-            jest.restoreAllMocks()
+        describe('without a slack hook', () => {
+            beforeAll(async () => {
+                delete process.env.SLACK_HOOK
+                await publishToSlack(freeContent)
+            })
+
+            it('does not send a message to slack', () => expect(axios.post).not.toBeCalled())
         })
-        it('sends a message to slack', () => expect(axios.post).toBeCalledWith(process.env.SLACK_HOOK, builtContent))
     })
 })

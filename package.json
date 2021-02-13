@@ -7,6 +7,7 @@
     "build": "tsc",
     "test": "jest --maxWorkers=1",
     "test:watch": "jest --watchAll",
+    "test:cover": "jest --coverage",
     "lint": "eslint . --ext .ts",
     "start": "ts-node src/index.ts"
   },

@@ -1,4 +1,4 @@
-import { ContentSource, FreeContent, SlackMessage } from '../interfaces'
+import { ContentSource, FreeContent, SlackBlock, SlackMessage } from '../interfaces'
 
 const sourceMap = {
     [ContentSource.EpicGames]: 'Epic Games',
@@ -11,31 +11,35 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
               expirationDate.getTime() / 1000
           )}^Expires {date_short_pretty} at {time}|Expires ${expirationDate.toDateString()}>`
         : ''
+
+    const blocks: SlackBlock[] = [
+        {
+            type: 'image',
+            title: {
+                type: 'plain_text',
+                text: `Free from ${sourceMap[source]} - ${title}`,
+            },
+            image_url: imageUrl,
+            alt_text: title,
+        },
+        {
+            type: 'section',
+            text: {
+                type: 'mrkdwn',
+                text: `*<${url}|Get ${title}>*`,
+            },
+        },
+    ]
+    if (expirationMessage) {
+        blocks.push({
+            type: 'section',
+            text: {
+                type: 'mrkdwn',
+                text: `_${expirationMessage}_`,
+            },
+        })
+    }
     return {
-        blocks: [
-            {
-                type: 'image',
-                title: {
-                    type: 'plain_text',
-                    text: `Free from ${sourceMap[source]} - ${title}`,
-                },
-                image_url: imageUrl,
-                alt_text: title,
-            },
-            {
-                type: 'section',
-                text: {
-                    type: 'mrkdwn',
-                    text: `*<${url}|Get ${title}>*`,
-                },
-            },
-            {
-                type: 'section',
-                text: {
-                    type: 'mrkdwn',
-                    text: `_${expirationMessage}_`,
-                },
-            },
-        ],
+        blocks,
     }
 }
