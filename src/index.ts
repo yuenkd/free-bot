@@ -25,7 +25,8 @@ async function publishFreeGamesToSlack(freeGames: FreeContent[]) {
 if (process.env.RUN_ONCE) {
     void main()
 } else {
-    cron.schedule('0 17 * * *', () => {
+    const schedule = process.env.CRON_SCHEDULE || '0 17 * * *'
+    cron.schedule(schedule, () => {
         void main()
     })
 }
