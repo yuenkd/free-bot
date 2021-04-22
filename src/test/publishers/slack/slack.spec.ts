@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { ContentSource, FreeContent, SlackMessage } from '../../interfaces'
-import { publishToSlack } from '../../publishers/slack'
-import * as postBodyBuilder from '../../publishers/post-body-builder'
+import { ContentSource, FreeContent, SlackMessage } from '../../../interfaces'
+import { publishToSlack } from '../../../publishers/slack/slack'
+import * as postBodyBuilder from '../../../publishers/slack/post-body-builder'
 
 jest.mock('axios')
 

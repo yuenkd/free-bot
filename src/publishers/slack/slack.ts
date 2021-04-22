@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { FreeContent } from '../interfaces'
+import { FreeContent } from '../../interfaces'
 import { buildSlackMessage } from './post-body-builder'
 
 export async function publishToSlack(freeContent: FreeContent): Promise<void> {

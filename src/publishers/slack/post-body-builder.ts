@@ -1,4 +1,4 @@
-import { ContentSource, FreeContent, SlackBlock, SlackMessage } from '../interfaces'
+import { ContentSource, FreeContent, SlackBlock, SlackMessage } from '../../interfaces'
 
 const sourceMap = {
     [ContentSource.EpicGames]: 'Epic Games',

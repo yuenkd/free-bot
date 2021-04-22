@@ -1,5 +1,5 @@
-import { ContentSource, FreeContent, SlackMessage } from '../../interfaces'
-import { buildSlackMessage } from '../../publishers/post-body-builder'
+import { ContentSource, FreeContent, SlackMessage } from '../../../interfaces'
+import { buildSlackMessage } from '../../../publishers/slack/post-body-builder'
 
 describe('#postBodyBuilder', () => {
     describe('when building a slack message post body', () => {

@@ -49,3 +49,9 @@ export interface SlackBlock {
 export interface SlackMessage {
     blocks: SlackBlock[]
 }
+
+export interface DiscordMessage {
+    username?: string
+    avatar_url?: string
+    embeds?: unknown[]
+}
