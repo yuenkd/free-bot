@@ -9,13 +9,14 @@ describe('#discord publisher', () => {
         afterEach(() => {
             jest.clearAllMocks()
         })
+        const expirationDate = new Date();
         const freeContent: FreeContent[] = [
             {
                 title: 'Test Title',
                 description: 'Test Description',
                 imageUrl: 'https://cool.image',
                 url: 'https://cool.link',
-                expirationDate: new Date(),
+                expirationDate,
                 source: ContentSource.EpicGames,
             },
         ]
@@ -28,7 +29,7 @@ describe('#discord publisher', () => {
                 embeds: [
                     {
                         title: freeContent[0].title,
-                        description: `Expires ${freeContent[0].expirationDate.toDateString()}`,
+                        description: `Expires ${expirationDate.toDateString()}`,
                         url: freeContent[0].url,
                         image: {
                             url: freeContent[0].imageUrl,
