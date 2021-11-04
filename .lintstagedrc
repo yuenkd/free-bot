@@ -1,5 +1,6 @@
 {
     "*.(js|ts)": [
+        "tsc-files --noEmit",
         "eslint --fix"
     ]
 }
