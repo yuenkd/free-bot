@@ -5,7 +5,7 @@ import axios from 'axios'
 export const apiUrl =
     'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?locale=en-US&country=US&allowCountries=US'
 
-export const epicProductPagePrefix = 'https://www.epicgames.com/store/en-US/product'
+export const epicProductPagePrefix = 'https://www.epicgames.com/store/en-US/p'
 
 export async function getFreeEpicGames(): Promise<FreeContent[]> {
     const response = await axios.get<EpicGamesResponse>(apiUrl)
@@ -15,7 +15,7 @@ export async function getFreeEpicGames(): Promise<FreeContent[]> {
             title: freeGame.title,
             description: freeGame.description,
             imageUrl: getImageUrl(freeGame),
-            url: `${epicProductPagePrefix}/${freeGame.productSlug}`,
+            url: `${epicProductPagePrefix}/${freeGame.productSlug || freeGame.urlSlug}`,
             expirationDate: getExpirationDate(freeGame),
             source: ContentSource.EpicGames,
         })) ?? []

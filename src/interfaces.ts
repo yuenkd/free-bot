@@ -21,6 +21,7 @@ export interface EpicFreeGame {
     keyImages: { type: string; url: string }[]
     effectiveDate: string
     productSlug: string
+    urlSlug: string
     price?: { lineOffers: { appliedRules: { endDate: string }[] }[] }
     promotions?: { promotionalOffers: { promotionalOffers: EpicPromotionalOffer[] }[] }
 }

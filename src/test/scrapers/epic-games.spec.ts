@@ -66,14 +66,15 @@ describe('#epic games scraper', () => {
                                     description: expectedFreeGames[2].description,
                                     imageType: 'OtherImage',
                                     imageUrl: expectedFreeGames[2].imageUrl,
-                                    productSlug: 'free-game-other-image',
+                                    productSlug: '',
+                                    urlSlug: 'free-game-other-image',
                                     effectiveDate: new Date(),
                                 }),
                                 getFakeEpicFreeGame({
                                     title: 'Not available until next week',
                                     description: 'Super cool game',
                                     effectiveDate: nextWeek,
-                                }),
+                                })
                             ],
                         },
                     },

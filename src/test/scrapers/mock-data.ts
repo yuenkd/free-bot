@@ -6,6 +6,7 @@ interface FreeOverride {
     imageType: string
     imageUrl: string
     productSlug: string
+    urlSlug: string
     effectiveDate: Date
     endDate: Date
     isPromotional: boolean
@@ -18,6 +19,7 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
         imageType = 'Thumbnail',
         imageUrl = 'https://my.cool.image.example.com',
         productSlug = 'super-cool-game',
+        urlSlug = 'super-cool-game-url',
         effectiveDate = new Date(),
         endDate,
         isPromotional = false,
@@ -34,6 +36,7 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
             },
         ],
         productSlug,
+        urlSlug
     }
 
     if (!isPromotional) {
