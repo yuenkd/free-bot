@@ -12,12 +12,30 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
           )}^Expires {date_short_pretty} at {time}|Expires ${expirationDate.toDateString()}>`
         : ''
 
+    const blocks =  getSlackBlocks(sourceMap[source], title, imageUrl, url)
+
+    if (expirationMessage) {
+        blocks.push({
+            type: 'section',
+            text: {
+                type: 'mrkdwn',
+                text: `_${expirationMessage}_`,
+            },
+        })
+    }
+
+    return {
+        blocks
+    }
+}
+
+function getSlackBlocks(sourceText: string, title: string, imageUrl: string, url: string) {
     const blocks: SlackBlock[] = [
         {
             type: 'image',
             title: {
                 type: 'plain_text',
-                text: `Free from ${sourceMap[source]} - ${title}`,
+                text: `Free from ${sourceText} - ${title}`,
             },
             image_url: imageUrl,
             alt_text: title,
@@ -30,16 +48,5 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
             },
         },
     ]
-    if (expirationMessage) {
-        blocks.push({
-            type: 'section',
-            text: {
-                type: 'mrkdwn',
-                text: `_${expirationMessage}_`,
-            },
-        })
-    }
-    return {
-        blocks,
-    }
+    return blocks
 }
