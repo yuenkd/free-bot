@@ -15,11 +15,16 @@ export async function getFreeEpicGames(): Promise<FreeContent[]> {
             title: freeGame.title,
             description: freeGame.description,
             imageUrl: getImageUrl(freeGame),
-            url: `${epicProductPagePrefix}/${freeGame.productSlug || freeGame.urlSlug}`,
+            url: `${epicProductPagePrefix}/${getSlug(freeGame)}`,
             expirationDate: getExpirationDate(freeGame),
             source: ContentSource.EpicGames,
         })) ?? []
     )
+}
+
+function getSlug(freeGame: EpicFreeGame) {
+    const { productSlug, urlSlug, catalogNs } = freeGame
+    return catalogNs?.mappings?.[0]?.pageSlug || productSlug || urlSlug
 }
 
 function isGameFreeToday(game: EpicFreeGame) {

@@ -37,6 +37,14 @@ describe('#epic games scraper', () => {
                     url: `${epicProductPagePrefix}/free-game-other-image`,
                     source: ContentSource.EpicGames,
                 },
+                {
+                    title: 'Mapped Free Game',
+                    description: 'Mapped Free Game',
+                    imageUrl: 'https://mapped.free.game.example.com',
+                    url: `${epicProductPagePrefix}/mapped-free-game`,
+                    expirationDate: nextWeek,
+                    source: ContentSource.EpicGames,
+                },
             ]
 
             const epicResponse = {
@@ -69,6 +77,16 @@ describe('#epic games scraper', () => {
                                     productSlug: '',
                                     urlSlug: 'free-game-other-image',
                                     effectiveDate: new Date(),
+                                }),
+                                getFakeEpicFreeGame({
+                                    title: expectedFreeGames[3].title,
+                                    description: expectedFreeGames[3].description,
+                                    imageUrl: expectedFreeGames[3].imageUrl,
+                                    productSlug: 'do-not-use',
+                                    urlSlug: 'do-not-use',
+                                    pageSlug: 'mapped-free-game',
+                                    effectiveDate: new Date(),
+                                    endDate: expectedFreeGames[3].expirationDate,
                                 }),
                                 getFakeEpicFreeGame({
                                     title: 'Not available until next week',

@@ -24,6 +24,11 @@ export interface EpicFreeGame {
     urlSlug: string
     price?: { lineOffers: { appliedRules: { endDate: string }[] }[] }
     promotions?: { promotionalOffers: { promotionalOffers: EpicPromotionalOffer[] }[] }
+    catalogNs?: { mappings?: CatalogMapping[] }
+}
+
+export interface CatalogMapping {
+    pageSlug: string
 }
 
 export interface EpicPromotionalOffer {
