@@ -13,10 +13,8 @@ const config: Config.InitialOptions = {
         },
     },
     testPathIgnorePatterns: ['node_modules', 'dist'],
-    globals: {
-        'ts-jest': {
-            isolatedModules: true
-        }
+    transform: {
+        '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }]
     }
 }
 

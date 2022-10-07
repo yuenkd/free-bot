@@ -18,26 +18,26 @@ describe('#postBodyBuilder', () => {
         })
         it('uses the passed in content to form the message', () =>
             expect(slackMessage).toMatchInlineSnapshot(`
-                Object {
-                  "blocks": Array [
-                    Object {
+                {
+                  "blocks": [
+                    {
                       "alt_text": "Free Thing",
                       "image_url": "http://cool.image",
-                      "title": Object {
+                      "title": {
                         "text": "Free from Epic Games - Free Thing",
                         "type": "plain_text",
                       },
                       "type": "image",
                     },
-                    Object {
-                      "text": Object {
+                    {
+                      "text": {
                         "text": "*<http://here.it.is|Get Free Thing>*",
                         "type": "mrkdwn",
                       },
                       "type": "section",
                     },
-                    Object {
-                      "text": Object {
+                    {
+                      "text": {
                         "text": "_<!date^1609459200^Expires {date_short_pretty} at {time}|Expires Thu Dec 31 2020>_",
                         "type": "mrkdwn",
                       },
@@ -61,19 +61,19 @@ describe('#postBodyBuilder', () => {
         })
         it('uses the passed in content to form the message', () =>
             expect(slackMessage).toMatchInlineSnapshot(`
-                Object {
-                  "blocks": Array [
-                    Object {
+                {
+                  "blocks": [
+                    {
                       "alt_text": "Free Thing",
                       "image_url": "http://cool.image",
-                      "title": Object {
+                      "title": {
                         "text": "Free from Epic Games - Free Thing",
                         "type": "plain_text",
                       },
                       "type": "image",
                     },
-                    Object {
-                      "text": Object {
+                    {
+                      "text": {
                         "text": "*<http://here.it.is|Get Free Thing>*",
                         "type": "mrkdwn",
                       },
