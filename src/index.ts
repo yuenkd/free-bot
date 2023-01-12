@@ -8,13 +8,12 @@ import { FreeContent } from './interfaces'
 async function main() {
     console.log(`Checking Epic Games at ${new Date().toISOString()}`)
     const freeGames = await getFreeEpicGames()
-    await Promise.allSettled([publishFreeGamesToSlack(freeGames), publishToDiscord(freeGames)])
+    await Promise.allSettled([publishFreeGamesToSlack(freeGames), publishToDiscord(freeGames), console.log(freeGames)])
 }
 
 async function publishFreeGamesToSlack(freeGames: FreeContent[]) {
     try {
         for (const freeGame of freeGames) {
-            console.log(freeGame)
             await publishToSlack(freeGame)
         }
     } catch (err) {
