@@ -45,6 +45,14 @@ describe('#epic games scraper', () => {
                     expirationDate: nextWeek,
                     source: ContentSource.EpicGames,
                 },
+                {
+                    title: 'Offer Mapped Free Game',
+                    description: 'Offer Mapped Free Game',
+                    imageUrl: 'https://offer.mapped.free.game.example.com',
+                    url: `${epicProductPagePrefix}/offer-mapped-free-game`,
+                    expirationDate: nextWeek,
+                    source: ContentSource.EpicGames,
+                },
             ]
 
             const epicResponse = {
@@ -89,6 +97,17 @@ describe('#epic games scraper', () => {
                                     endDate: expectedFreeGames[3].expirationDate,
                                 }),
                                 getFakeEpicFreeGame({
+                                    title: expectedFreeGames[4].title,
+                                    description: expectedFreeGames[4].description,
+                                    imageUrl: expectedFreeGames[4].imageUrl,
+                                    productSlug: 'do-not-use',
+                                    urlSlug: 'do-not-use',
+                                    pageSlug: 'do-not-use',
+                                    offerMappingPageSlug: 'offer-mapped-free-game',
+                                    effectiveDate: new Date(),
+                                    endDate: expectedFreeGames[4].expirationDate,
+                                }),
+                                getFakeEpicFreeGame({
                                     title: 'Not available until next week',
                                     description: 'Super cool game',
                                     effectiveDate: nextWeek,
@@ -104,7 +123,7 @@ describe('#epic games scraper', () => {
             })
             actualfreeGames = await getFreeEpicGames()
         })
-        it('hits the epic games API', () => expect(axios.get).toBeCalledWith(apiUrl))
+        it('hits the epic games API', () => expect(axios.get).toHaveBeenCalledWith(apiUrl))
         it('returns the list of free games effective today', () => expect(actualfreeGames).toEqual(expectedFreeGames))
     })
     describe('when there are no free games', () => {
@@ -123,7 +142,7 @@ describe('#epic games scraper', () => {
             })
             actualfreeGames = await getFreeEpicGames()
         })
-        it('hits the epic games API', () => expect(axios.get).toBeCalledWith(apiUrl))
+        it('hits the epic games API', () => expect(axios.get).toHaveBeenCalledWith(apiUrl))
         it('returns the list of free games effective today', () => expect(actualfreeGames).toEqual([]))
     })
 })

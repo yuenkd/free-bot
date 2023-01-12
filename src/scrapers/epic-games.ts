@@ -23,8 +23,8 @@ export async function getFreeEpicGames(): Promise<FreeContent[]> {
 }
 
 function getSlug(freeGame: EpicFreeGame) {
-    const { productSlug, urlSlug, catalogNs } = freeGame
-    return catalogNs?.mappings?.[0]?.pageSlug || productSlug || urlSlug
+    const { productSlug, urlSlug, catalogNs, offerMappings } = freeGame
+    return offerMappings?.[0]?.pageSlug || catalogNs?.mappings?.[0]?.pageSlug || productSlug || urlSlug
 }
 
 function isGameFreeToday(game: EpicFreeGame) {
