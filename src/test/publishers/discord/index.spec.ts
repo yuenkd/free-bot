@@ -42,7 +42,7 @@ describe('#discord publisher', () => {
                 await publishToDiscord(freeContent)
             })
             it('sends a message to discord', () =>
-                expect(axios.post).toBeCalledWith(process.env.DISCORD_HOOK, builtContent))
+                expect(axios.post).toHaveBeenCalledWith(process.env.DISCORD_HOOK, builtContent))
         })
         describe('without a discord hook', () => {
             beforeAll(async () => {
@@ -50,7 +50,7 @@ describe('#discord publisher', () => {
                 await publishToDiscord(freeContent)
             })
 
-            it('does not send a message to discord', () => expect(axios.post).not.toBeCalled())
+            it('does not send a message to discord', () => expect(axios.post).not.toHaveBeenCalled())
         })
     })
 })

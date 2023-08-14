@@ -29,7 +29,7 @@ describe('#slack publisher', () => {
                 await publishToSlack(freeContent)
             })
             it('sends a message to slack', () =>
-                expect(axios.post).toBeCalledWith(process.env.SLACK_HOOK, builtContent))
+                expect(axios.post).toHaveBeenCalledWith(process.env.SLACK_HOOK, builtContent))
         })
         describe('without a slack hook', () => {
             beforeAll(async () => {
@@ -37,7 +37,7 @@ describe('#slack publisher', () => {
                 await publishToSlack(freeContent)
             })
 
-            it('does not send a message to slack', () => expect(axios.post).not.toBeCalled())
+            it('does not send a message to slack', () => expect(axios.post).not.toHaveBeenCalled())
         })
     })
 })
