@@ -12,7 +12,7 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
           )}^Expires {date_short_pretty} at {time}|Expires ${expirationDate.toDateString()}>`
         : ''
 
-    const blocks =  getSlackBlocks(sourceMap[source], title, imageUrl, url)
+    const blocks = getSlackBlocks(sourceMap[source], title, imageUrl, url)
 
     if (expirationMessage) {
         blocks.push({
@@ -25,7 +25,7 @@ export function buildSlackMessage(freeContent: FreeContent): SlackMessage {
     }
 
     return {
-        blocks
+        blocks,
     }
 }
 

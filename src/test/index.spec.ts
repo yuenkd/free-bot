@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { getFreeEpicGames as mockGetFreeEpicGames } from '../scrapers/epic-games'
 import { publishToSlack as mockPublishToSlack } from '../publishers/slack/slack'
 import { publishToDiscord as mockPublishToDiscord } from '../publishers/discord'

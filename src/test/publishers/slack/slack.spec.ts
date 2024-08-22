@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios'
 import { ContentSource, FreeContent, SlackMessage } from '../../../interfaces'
 import { publishToSlack } from '../../../publishers/slack/slack'

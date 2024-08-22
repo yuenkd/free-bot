@@ -9,8 +9,8 @@ interface FreeOverride {
     urlSlug: string
     effectiveDate: Date
     endDate: Date
-    isPromotional: boolean,
-    pageSlug: string,
+    isPromotional: boolean
+    pageSlug: string
     offerMappingPageSlug: string
 }
 
@@ -26,7 +26,7 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
         endDate,
         isPromotional = false,
         pageSlug,
-        offerMappingPageSlug
+        offerMappingPageSlug,
     } = overrides
 
     const freeGame: EpicFreeGame = {
@@ -40,15 +40,15 @@ export function getFakeEpicFreeGame(overrides: Partial<FreeOverride>): EpicFreeG
             },
         ],
         productSlug,
-        urlSlug
+        urlSlug,
     }
 
     if (pageSlug) {
-        freeGame.catalogNs = { mappings: [{ pageSlug }]}
+        freeGame.catalogNs = { mappings: [{ pageSlug }] }
     }
 
     if (offerMappingPageSlug) {
-        freeGame.offerMappings = [ {pageSlug: offerMappingPageSlug}]
+        freeGame.offerMappings = [{ pageSlug: offerMappingPageSlug }]
     }
 
     if (!isPromotional) {

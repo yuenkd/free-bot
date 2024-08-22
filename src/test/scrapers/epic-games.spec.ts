@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios'
 import { ContentSource, FreeContent } from '../../interfaces'
 import { apiUrl, epicProductPagePrefix, getFreeEpicGames } from '../../scrapers/epic-games'
@@ -111,7 +112,7 @@ describe('#epic games scraper', () => {
                                     title: 'Not available until next week',
                                     description: 'Super cool game',
                                     effectiveDate: nextWeek,
-                                })
+                                }),
                             ],
                         },
                     },

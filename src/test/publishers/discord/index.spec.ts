@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios'
 import { ContentSource, FreeContent } from '../../../interfaces'
 import { publishToDiscord } from '../../../publishers/discord'
@@ -9,7 +10,7 @@ describe('#discord publisher', () => {
         afterEach(() => {
             jest.clearAllMocks()
         })
-        const expirationDate = new Date();
+        const expirationDate = new Date()
         const freeContent: FreeContent[] = [
             {
                 title: 'Test Title',
