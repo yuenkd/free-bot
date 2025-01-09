@@ -11,6 +11,7 @@ describe('#discord publisher', () => {
             jest.clearAllMocks()
         })
         const expirationDate = new Date()
+        const unixTimestamp = Math.floor(expirationDate.valueOf() / 1000)
         const freeContent: FreeContent[] = [
             {
                 title: 'Test Title',
@@ -30,7 +31,7 @@ describe('#discord publisher', () => {
                 embeds: [
                     {
                         title: freeContent[0].title,
-                        description: `Expires ${expirationDate.toDateString()}`,
+                        description: `Expires <t:${unixTimestamp}>`,
                         url: freeContent[0].url,
                         image: {
                             url: freeContent[0].imageUrl,

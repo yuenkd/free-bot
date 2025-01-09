@@ -28,14 +28,18 @@ const userMap = {
     [ContentSource.EpicGames]: 'Free from Epic Games',
 }
 
+function getUnixTimestamp(date: Date) {
+    return Math.floor(date.valueOf() / 1000)
+}
+
 function buildDiscordMessages(freeContent: FreeContent[]): DiscordMessage {
     const discordMessage: DiscordMessage = {
-        embeds: freeContent.map((free) => ({
-            title: free.title,
-            description: free.expirationDate ? `Expires ${free.expirationDate.toDateString()}` : '',
-            url: free.url,
+        embeds: freeContent.map(({ expirationDate, imageUrl, title, url }) => ({
+            title,
+            description: expirationDate ? `Expires <t:${getUnixTimestamp(expirationDate)}>` : '',
+            url,
             image: {
-                url: free.imageUrl,
+                url: imageUrl,
             },
         })),
     }
