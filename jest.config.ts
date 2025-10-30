@@ -12,10 +12,7 @@ const config: Config.InitialOptions = {
             lines: 75,
         },
     },
-    testPathIgnorePatterns: ['node_modules', 'dist'],
-    transform: {
-        '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }]
-    }
+    testPathIgnorePatterns: ['node_modules', 'dist']
 }
 
 export default config
